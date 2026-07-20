@@ -18,7 +18,6 @@ REQUIRED_PACKAGES := requests phonenumbers rich
 
 install:
 	@echo -e "$(BLUE)[+] Menginstall dependency...$(RESET)"
-	@pip install --upgrade pip
 	@pip install $(REQUIRED_PACKAGES)
 	@echo -e "$(GREEN)[✓] Install selesai!$(RESET)"
 
