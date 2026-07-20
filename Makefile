@@ -36,7 +36,7 @@ check:
 
 # ==================== RUN ====================
 
-run: check
+run: install check
 	@clear
 	@echo -e "$(BLUE)[+] Mengupdate repository...$(RESET)"
 	@git pull --ff-only || true
