@@ -1,4 +1,3 @@
-
 SHELL := /bin/bash
 
 TARGET := dark.bin
@@ -18,7 +17,7 @@ REQUIRED_PACKAGES := requests phonenumbers rich
 
 install:
 	@echo -e "$(BLUE)[+] Menginstall dependency...$(RESET)"
-	@pip install $(REQUIRED_PACKAGES)
+	@pip install -q $(REQUIRED_PACKAGES)
 	@echo -e "$(GREEN)[✓] Install selesai!$(RESET)"
 
 # ==================== CHECK ====================
@@ -29,7 +28,8 @@ check:
 		if python -c "import $$pkg" >/dev/null 2>&1; then \
 			echo -e "$(GREEN)[✓] $$pkg$(RESET)"; \
 		else \
-			echo -e "$(RED)[✗] $$pkg belum terpasang$(RESET)"; \
+			echo -e "$(RED)[✗] $$pkg belum terpasang, menginstall...$(RESET)"; \
+			pip install -q $$pkg; \
 		fi; \
 	done
 
@@ -38,7 +38,9 @@ check:
 run: install check
 	@clear
 	@echo -e "$(BLUE)[+] Mengupdate repository...$(RESET)"
-	@git pull --ff-only || true
+	@git stash push --include-untracked -m "auto-stash" >/dev/null 2>&1 || true
+	@git pull --rebase --autostash || true
+	@git stash pop >/dev/null 2>&1 || true
 	@echo -e "$(GREEN)[+] Menjalankan $(TARGET)...$(RESET)"
 	@if [ ! -f "$(TARGET)" ]; then \
 		echo -e "$(RED)[!] File $(TARGET) tidak ditemukan$(RESET)"; \
@@ -53,4 +55,4 @@ help:
 	@echo "Perintah yang tersedia:"
 	@echo "  make install  - Install dependency"
 	@echo "  make check    - Cek dependency"
-	@echo "  make run      - Git pull lalu jalankan dark.bin"
+	@echo "  make run      - Update repository lalu jalankan dark.bin"
