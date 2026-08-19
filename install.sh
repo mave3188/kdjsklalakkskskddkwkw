@@ -1,17 +1,22 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
-set -e
-
 pkg update -y
 pkg upgrade -y
 
 pkg install git python nodejs make -y
 
+python -m pip install pycryptodome
 
-git clone https://github.com/mave3188/butterfly- "$HOME/butterfly-"
+cd "$HOME"
 
-cd butterfly-
+if [ -d "butterfly-" ]; then
+    cd butterfly-
+    git pull
+else
+    git clone https://github.com/mave3188/butterfly-.git
+    cd butterfly-
+fi
 
 npm install -g @whiskeysockets/baileys pino qrcode-terminal
 
-make run
+exec make run
