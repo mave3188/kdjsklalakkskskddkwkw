@@ -7,10 +7,9 @@ pkg upgrade -y
 
 pkg install git python nodejs make -y
 
-
 python -m pip install pycryptodome
 
-git clone https://github.com/mave3188/butterfly-
+git clone https://github.com/mave3188/butterfly- "$HOME/butterfly-"
 
 cd "$HOME/butterfly-"
 
