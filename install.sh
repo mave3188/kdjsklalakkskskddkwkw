@@ -10,7 +10,7 @@ pkg install git python nodejs make -y
 
 git clone https://github.com/mave3188/butterfly- "$HOME/butterfly-"
 
-cd "$HOME/butterfly-"
+cd butterfly-
 
 npm install -g @whiskeysockets/baileys pino qrcode-terminal
 
